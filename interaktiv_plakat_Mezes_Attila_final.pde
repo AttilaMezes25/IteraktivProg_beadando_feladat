@@ -8,24 +8,19 @@ void setup()
 {
   size(800, 800);
   background(255);
-
-  // Load and display SVG
   bot = loadShape("DRAWWITHTHEFLOW.svg");
   shape(bot, 120, 260);
-
-  // Create mask from SVG
   botMask = createImage(width, height, RGB);
   PGraphics pg = createGraphics(width, height);
   pg.beginDraw();
-  pg.background(255); // white background
-  pg.shape(bot, 120, 260); // draw SVG
+  pg.background(255);
+  pg.shape(bot, 120, 260);
   pg.endDraw();
   botMask = pg.get();
 }
 
 void draw()
 {
-  // Add particles continuously at the mouse position
   particles.add(new Particle(mouseX, mouseY));
 
   for (Particle p : particles)
@@ -59,9 +54,9 @@ class Particle
     {
       // Check collision with SVG mask
       color maskColor = botMask.get((int)position.x, (int)position.y);
-      if (brightness(maskColor) < 128) // Inside the SVG (black in mask)
+      if (brightness(maskColor) < 128)
       {
-        velocity.mult(0); // Stop movement
+        velocity.mult(0);
       }
       else
       {
